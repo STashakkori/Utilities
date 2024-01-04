@@ -1,0 +1,7 @@
+javascript: (function() {
+    var c = document.cookie.split(';');
+    for (var i = 0; i < c.length; i++) {
+        var d = c[i].split('=')[0];
+        document.cookie = d + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;';
+    }
+})();
