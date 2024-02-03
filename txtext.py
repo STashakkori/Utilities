@@ -3,7 +3,7 @@
 # directory to .txt. Used for machine learning on source
 # code but can be used for other efforts. The script DOES
 # modify your system. Do a backup first. Record of what
-# files changed to what is in output receipt.txt
+# filenames are before and after is in output receipt.txt
 import os
 
 def change_extensions_to_txt(root_directory, receipt_file):
