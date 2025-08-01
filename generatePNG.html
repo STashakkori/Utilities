@@ -1,0 +1,72 @@
+<!-- Super simple 64x64 PNG generator needed for testing some favicon research projects. Enjoy -->
+<!-- $t@$h -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>64x64 PNG Generator</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 2em;
+      background: #f0f0f0;
+    }
+    .preview {
+      border: 1px dashed #aaa;
+      margin-top: 1em;
+      width: 64px;
+      height: 64px;
+      margin-left: auto;
+      margin-right: auto;
+      image-rendering: pixelated;
+    }
+    select, button {
+      padding: 0.5em 1em;
+      margin-top: 1em;
+      font-size: 1em;
+    }
+  </style>
+</head>
+<body>
+  <h1>64×64 PNG Generator</h1>
+  <label for="color">Select a color:</label><br>
+  <select id="color">
+    <option value="transparent">Transparent</option>
+    <option value="white">White</option>
+    <option value="black">Black</option>
+    <option value="red">Red</option>
+    <option value="green">Green</option>
+    <option value="blue">Blue</option>
+    <option value="yellow">Yellow</option>
+    <option value="cyan">Cyan</option>
+    <option value="magenta">Magenta</option>
+    <option value="gray">Gray</option>
+  </select>
+  <br>
+  <button onclick="generatePNG()">Download PNG</button>
+  <canvas id="canvas" width="64" height="64" class="preview"></canvas>
+
+  <script>
+    function generatePNG() {
+      const color = document.getElementById("color").value;
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+
+      ctx.clearRect(0, 0, 64, 64); // Clean
+
+      if (color !== "transparent") {
+        ctx.fillStyle = color;
+        ctx.fillRect(0, 0, 64, 64);
+      }
+
+      // Download
+      const pngData = canvas.toDataURL("image/png");
+      const link = document.createElement("a");
+      link.href = pngData;
+      link.download = `square-${color.replace('#','')}.png`;
+      link.click();
+    }
+  </script>
+</body>
+</html>
