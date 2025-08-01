@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>64x64 PNG Generator</title>
+  <title>PNG Generator</title>
   <style>
     body {
       font-family: sans-serif;
@@ -15,8 +15,6 @@
     .preview {
       border: 1px dashed #aaa;
       margin-top: 1em;
-      width: 64px;
-      height: 64px;
       margin-left: auto;
       margin-right: auto;
       image-rendering: pixelated;
@@ -29,7 +27,7 @@
   </style>
 </head>
 <body>
-  <h1>64×64 PNG Generator</h1>
+  <h1>PNG Generator</h1>
   <label for="color">Select a color:</label><br>
   <select id="color">
     <option value="transparent">Transparent</option>
@@ -44,27 +42,39 @@
     <option value="gray">Gray</option>
   </select>
   <br>
+  <label for="size">Select image size:</label><br>
+  <select id="size">
+    <option value="64">64×64</option>
+    <option value="128">128×128</option>
+  </select>
+  <br>
   <button onclick="generatePNG()">Download PNG</button>
-  <canvas id="canvas" width="64" height="64" class="preview"></canvas>
+  <br>
+  <canvas id="canvas" class="preview"></canvas>
 
   <script>
     function generatePNG() {
       const color = document.getElementById("color").value;
+      const size = parseInt(document.getElementById("size").value, 10);
       const canvas = document.getElementById("canvas");
       const ctx = canvas.getContext("2d");
 
-      ctx.clearRect(0, 0, 64, 64); // Clean
+      canvas.width = size;
+      canvas.height = size;
+      canvas.style.width = size + "px";
+      canvas.style.height = size + "px";
+
+      ctx.clearRect(0, 0, size, size);
 
       if (color !== "transparent") {
         ctx.fillStyle = color;
-        ctx.fillRect(0, 0, 64, 64);
+        ctx.fillRect(0, 0, size, size);
       }
 
-      // Download
       const pngData = canvas.toDataURL("image/png");
       const link = document.createElement("a");
       link.href = pngData;
-      link.download = `square-${color.replace('#','')}.png`;
+      link.download = `square-${color.replace('#','')}-${size}.png`;
       link.click();
     }
   </script>
