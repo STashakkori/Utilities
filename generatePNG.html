@@ -1,5 +1,7 @@
-<!-- Super simple 64x64 PNG generator needed for testing some favicon research projects. Enjoy -->
+<!-- Super simple 64x64 PNG generator needed for testing some favicon research projects. -->
+<!-- Protect and empower, always -->
 <!-- $t@$h -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,13 +41,14 @@
     <option value="yellow">Yellow</option>
     <option value="cyan">Cyan</option>
     <option value="magenta">Magenta</option>
-    <option value="gray">Gray</option>
+    <option value="#888888">Gray</option>
   </select>
   <br>
   <label for="size">Select image size:</label><br>
   <select id="size">
     <option value="64">64×64</option>
     <option value="128">128×128</option>
+    <option value="256" selected>256×256</option> <!-- Default -->
   </select>
   <br>
   <button onclick="generatePNG()">Download PNG</button>
@@ -59,22 +62,28 @@
       const canvas = document.getElementById("canvas");
       const ctx = canvas.getContext("2d");
 
+      // Set canvas size
       canvas.width = size;
       canvas.height = size;
       canvas.style.width = size + "px";
       canvas.style.height = size + "px";
 
+      // Clear any previous content on the canvas
       ctx.clearRect(0, 0, size, size);
 
+      // Fill the canvas with the selected color if it's not transparent
       if (color !== "transparent") {
         ctx.fillStyle = color;
         ctx.fillRect(0, 0, size, size);
       }
 
+      // Convert canvas to PNG data URL
       const pngData = canvas.toDataURL("image/png");
+
+      // Create a download link and trigger download
       const link = document.createElement("a");
       link.href = pngData;
-      link.download = `square-${color.replace('#','')}-${size}.png`;
+      link.download = `square-${color.replace('#','')}-${size}.png`; // Custom filename based on color and size
       link.click();
     }
   </script>
